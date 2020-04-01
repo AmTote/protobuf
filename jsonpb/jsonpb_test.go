@@ -441,6 +441,10 @@ var marshalingTests = []struct {
 	{"empty repeated emitted", Marshaler{EmitDefaults: true}, &pb.SimpleSlice3{}, `{"slices":[]}`},
 	{"empty map emitted", Marshaler{EmitDefaults: true}, &pb.SimpleMap3{}, `{"stringy":{}}`},
 	{"nested struct null", Marshaler{EmitDefaults: true}, &pb.SimpleNull3{}, `{"simple":null}`},
+
+	{"tags with no EmitDefaults false", marshaler, &pb.JsonpbTags{}, `{"emitDefault":0}`},
+    {"tags with EmitDefaults true", Marshaler{EmitDefaults: true}, &pb.JsonpbTags{}, `{"emitDefault":0}`},
+
 	{"map<int64, int32>", marshaler, &pb.Mappy{Nummy: map[int64]int32{1: 2, 3: 4}}, `{"nummy":{"1":2,"3":4}}`},
 	{"map<int64, int32>", marshalerAllOptions, &pb.Mappy{Nummy: map[int64]int32{1: 2, 3: 4}}, nummyPrettyJSON},
 	{"map<string, string>", marshaler,

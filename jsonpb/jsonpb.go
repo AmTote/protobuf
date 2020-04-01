@@ -308,7 +308,8 @@ func (m *Marshaler) marshalObject(out *errWriter, v proto.Message, indent, typeU
 			}
 		}
 
-		if !m.EmitDefaults {
+        tag := valueField.Tag.Get("jsonpb")
+        if strings.Contains(tag, "noemitdefault") || !(m.EmitDefaults || strings.Contains(tag, "emitdefault")) {
 			switch value.Kind() {
 			case reflect.Bool:
 				if !value.Bool() {
